@@ -1,8 +1,9 @@
-Django>=4.2
-djangorestframework
+Django>=4.2,<5.0
+djangorestframework>=3.14
 psycopg2-binary
 python-dotenv
 whitenoise
 django-crispy-forms
 django-filter
 gunicorn
+dj-database-url
