@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ultra Modern Glass Design for Appointments */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .appointments-container {
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .appointments-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .appointments-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .appointments-table-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .appointments-table-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .table {
+            margin-bottom: 0;
+            border: none;
+        }
+
+        .table thead th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            font-weight: 600;
+            border: none;
+            padding: 1.2rem 0.75rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05) !important;
+            transform: translateX(5px);
+        }
+
+        .table tbody td {
+            padding: 1.2rem 0.75rem;
+            border: none;
+            color: #4a5568;
+            font-weight: 500;
+            vertical-align: middle;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .table-bordered {
+            border: none !important;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: none !important;
+        }
+
+        /* Status badges */
+        .table tbody td:nth-child(5) {
+            font-weight: 600;
+        }
+
+        .table tbody td:nth-child(5):contains("Scheduled") {
+            color: #f59e0b;
+        }
+
+        .table tbody td:nth-child(5):contains("Completed") {
+            color: #10b981;
+        }
+
+        .table tbody td:nth-child(5):contains("Cancelled") {
+            color: #ef4444;
+        }
+
+        .table tbody td:nth-child(5):contains("Confirmed") {
+            color: #3b82f6;
+        }
+
+        /* Empty state */
+        .table tbody tr td[colspan] {
+            text-align: center;
+            color: #a0aec0;
+            font-style: italic;
+            padding: 3rem 1rem;
+            background: rgba(102, 126, 234, 0.02);
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .appointments-header,
+        .appointments-table-container {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .appointments-header {
+            animation-delay: 0.1s;
+        }
+
+        .appointments-table-container {
+            animation-delay: 0.2s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .appointments-container {
+                padding: 1rem;
+            }
+            
+            .appointments-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .appointments-table-container {
+                padding: 1.5rem;
+                margin: 0 -0.5rem;
+            }
+            
+            .table-responsive {
+                border-radius: 12px;
+                overflow: hidden;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .appointments-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .appointments-table-container {
+                padding: 1rem;
+            }
+            
+            .table thead th,
+            .table tbody td {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="appointments-container">
+        <div class="appointments-header">
+            <h2><i class="fas fa-calendar-alt me-3"></i>Appointment List</h2>
+        </div>
+        
+        <div class="appointments-table-container">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Scheduled Time</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.id }}</td>
+                            <td>{{ appointment.patient }}</td>
+                            <td>{{ appointment.doctor }}</td>
+                            <td>{{ appointment.scheduled_time }}</td>
+                            <td>{{ appointment.status }}</td>
+                            <td>{{ appointment.notes }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="6" class="text-center">No appointments found</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add status colors dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusCells = document.querySelectorAll('tbody td:nth-child(5)');
+            statusCells.forEach(cell => {
+                const status = cell.textContent.trim().toLowerCase();
+                if (status.includes('scheduled')) {
+                    cell.style.color = '#f59e0b';
+                } else if (status.includes('completed')) {
+                    cell.style.color = '#10b981';
+                } else if (status.includes('cancelled')) {
+                    cell.style.color = '#ef4444';
+                } else if (status.includes('confirmed')) {
+                    cell.style.color = '#3b82f6';
+                }
+            });
+
+            // Add animation to table rows
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach((row, index) => {
+                row.style.animation = `fadeInUp 0.4s ease ${index * 0.1}s forwards`;
+                row.style.opacity = '0';
+            });
+        });
+    </script>
+</body>
+</html>

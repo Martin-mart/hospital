@@ -1,0 +1,25 @@
+<!-- System Status -->
+<div class="system-status">
+    <div class="status-header">
+        <i class="fas fa-check-circle"></i>
+        <h3>System Status</h3>
+    </div>
+    <div class="status-indicators">
+        <div class="status-item">
+            <i class="fas fa-server"></i>
+            <span class="status-text">Database: {{ db_status }}</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-shield-alt"></i>
+            <span class="status-text">Security: {{ security_status }}</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-bolt"></i>
+            <span class="status-text">Performance: {{ performance_status }}</span>
+        </div>
+        <div class="status-item">
+            <i class="fas fa-cloud"></i>
+            <span class="status-text">API: {{ api_status }}</span>
+        </div>
+    </div>
+</div>

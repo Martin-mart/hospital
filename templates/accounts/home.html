@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+/* Home Page Professional Styles */
+.home-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    color: #4a5568;
+    border-bottom: 1px solid #f7fafc;
+}
+
+.feature-list li:last-child {
+    border-bottom: none;
+}
+
+.feature-list li::before {
+    content: "✓";
+    color: #48bb78;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.cta-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    margin: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    color: #667eea;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+.security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+}
+
+.system-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.info-card i {
+    font-size: 2rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-stats {
+        gap: 1.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-card, .info-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Hospital Patient Management System</h1>
+            <p class="hero-subtitle">Enterprise-grade healthcare management platform designed for modern medical facilities</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1,247</span>
+                    <span class="stat-label">Patients Managed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">48</span>
+                    <span class="stat-label">Daily Appointments</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99.8%</span>
+                    <span class="stat-label">System Uptime</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">HIPAA</span>
+                    <span class="stat-label">Compliant</span>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="btn-primary">
+                        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Staff Login
+                    </a>
+                    
+                {% endif %}
+            </div>
+
+            <div class="security-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure • Encrypted • HIPAA Compliant</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-user-injured"></i>
+            </div>
+            <h3>Patient Management</h3>
+            <p>Comprehensive patient profiles with complete medical history, insurance information, and contact management.</p>
+            <ul class="feature-list">
+                <li>Electronic Health Records (EHR)</li>
+                <li>Medical history tracking</li>
+                <li>Insurance and billing integration</li>
+                <li>Secure document storage</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3>Appointment Scheduling</h3>
+            <p>Intelligent scheduling system with automated reminders and conflict resolution.</p>
+            <ul class="feature-list">
+                <li>Online booking portal</li>
+                <li>Automated SMS/email reminders</li>
+                <li>Resource allocation</li>
+                <li>Waitlist management</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-file-medical"></i>
+            </div>
+            <h3>Medical Records</h3>
+            <p>Secure digital storage and management of all medical documentation and patient data.</p>
+            <ul class="feature-list">
+                <li>Digital prescriptions</li>
+                <li>Lab results integration</li>
+                <li>Treatment plans</li>
+                <li>Progress notes</li>
+            </ul>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Analytics & Reporting</h3>
+            <p>Advanced analytics and reporting tools for data-driven healthcare decisions.</p>
+            <ul class="feature-list">
+                <li>Real-time dashboards</li>
+                <li>Custom report generation</li>
+                <li>Performance metrics</li>
+                <li>Financial analytics</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- System Information -->
+    <section class="system-info">
+        <div class="info-card">
+            <i class="fas fa-bolt"></i>
+            <h4>Fast & Reliable</h4>
+            <p>99.8% uptime guarantee with sub-second response times</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Secure & Compliant</h4>
+            <p>HIPAA compliant with end-to-end encryption</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h4>Mobile Ready</h4>
+            <p>Fully responsive design works on all devices</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-headset"></i>
+            <h4>24/7 Support</h4>
+            <p>Dedicated support team available around the clock</p>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <h2 style="color: white; margin-bottom: 1rem;">Ready to Transform Your Healthcare Management?</h2>
+        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">Join hundreds of medical professionals using our system</p>
+        <div class="cta-buttons">
+            <a href="{% url 'login' %}" class="btn-primary">
+                <i class="fas fa-play-circle"></i> Get Started Now
+            </a>
+            <a href="#demo" class="btn-secondary">
+                <i class="fas fa-video"></i> Request Demo
+            </a>
+        </div>
+    </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate statistics counting
+    const statElements = document.querySelectorAll('.stat-number');
+    statElements.forEach(stat => {
+        const originalText = stat.textContent;
+        if (!isNaN(originalText.replace('%', ''))) {
+            let target = parseFloat(originalText.replace('%', ''));
+            let current = 0;
+            const increment = target / 30;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    stat.textContent = originalText;
+                    clearInterval(timer);
+                } else {
+                    stat.textContent = originalText.includes('%') 
+                        ? Math.floor(current) + '%' 
+                        : Math.floor(current).toLocaleString();
+                }
+            }, 50);
+        }
+    });
+
+    // Add hover effects to feature cards
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+</script>
+{% endblock %}

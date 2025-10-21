@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Invoices</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      /* Professional Invoices Page - Ultra Modern Glass Design */
+      body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 50px 50px;
+        animation: float 20s infinite linear;
+        z-index: -1;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50px, -50px) rotate(360deg);
+        }
+      }
+
+      h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        margin: 0 auto;
+        max-width: 1200px;
+      }
+
+      thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      thead th {
+        color: white;
+        font-weight: 600;
+        padding: 1.5rem 1rem;
+        text-align: left;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+      }
+
+      tbody tr {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+      }
+
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      tbody tr:hover {
+        background: rgba(102, 126, 234, 0.05);
+        transform: translateX(5px);
+      }
+
+      tbody td {
+        padding: 1.25rem 1rem;
+        color: #4a5568;
+        font-weight: 500;
+        border: none;
+      }
+
+      tbody tr:nth-child(even) {
+        background: rgba(102, 126, 234, 0.02);
+      }
+
+      tbody tr:nth-child(even):hover {
+        background: rgba(102, 126, 234, 0.08);
+      }
+
+      /* Status Badges */
+      td:nth-child(4) {
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+
+      td:nth-child(4):contains("paid") {
+        color: #48bb78;
+        background: rgba(72, 187, 120, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        display: inline-block;
+      }
+
+      td:nth-child(4):contains("pending") {
+        color: #ed8936;
+        background: rgba(237, 137, 54, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        display: inline-block;
+      }
+
+      td:nth-child(4):contains("overdue") {
+        color: #f56565;
+        background: rgba(245, 101, 101, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        display: inline-block;
+      }
+
+      /* Amount Column */
+      td:nth-child(3) {
+        font-weight: 600;
+        color: #2d3748;
+        font-family: "Courier New", monospace;
+      }
+
+      /* Empty State */
+      tbody tr td[colspan] {
+        text-align: center;
+        color: #a0aec0;
+        font-style: italic;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      table {
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        table {
+          font-size: 0.9rem;
+        }
+
+        thead th,
+        tbody td {
+          padding: 1rem 0.75rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        table {
+          font-size: 0.8rem;
+        }
+
+        thead th,
+        tbody td {
+          padding: 0.75rem 0.5rem;
+        }
+      }
+
+      /* Custom scrollbar for table if needed */
+      .table-container {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      .table-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .table-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+      }
+
+      .table-container::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 4px;
+      }
+
+      .table-container::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Invoices</h1>
+
+    <div class="table-container">
+      <table cellpadding="8">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Patient</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Issue Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for invoice in invoices %}
+          <tr>
+            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.patient.name }}</td>
+            <td>{{ invoice.amount }}</td>
+            <td>{{ invoice.status }}</td>
+            <td>{{ invoice.issue_date }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">No invoices available</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      // Add status badge styling dynamically
+      document.addEventListener("DOMContentLoaded", function () {
+        const statusCells = document.querySelectorAll("td:nth-child(4)");
+        statusCells.forEach((cell) => {
+          const status = cell.textContent.toLowerCase().trim();
+          if (status === "paid") {
+            cell.style.color = "#48bb78";
+            cell.style.background = "rgba(72, 187, 120, 0.1)";
+            cell.style.padding = "0.5rem 1rem";
+            cell.style.borderRadius = "20px";
+            cell.style.display = "inline-block";
+          } else if (status === "pending") {
+            cell.style.color = "#ed8936";
+            cell.style.background = "rgba(237, 137, 54, 0.1)";
+            cell.style.padding = "0.5rem 1rem";
+            cell.style.borderRadius = "20px";
+            cell.style.display = "inline-block";
+          } else if (status === "overdue") {
+            cell.style.color = "#f56565";
+            cell.style.background = "rgba(245, 101, 101, 0.1)";
+            cell.style.padding = "0.5rem 1rem";
+            cell.style.borderRadius = "20px";
+            cell.style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

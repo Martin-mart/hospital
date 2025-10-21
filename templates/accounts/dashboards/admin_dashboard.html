@@ -1,0 +1,520 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<style>
+  /* Professional Admin Dashboard - Ultra Modern Glass Design */
+  .dashboard-container {
+    min-height: calc(100vh - 200px);
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    position: relative;
+  }
+
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .dashboard-header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+  }
+
+  .dashboard-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+  }
+
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .admin-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .admin-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .admin-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 35px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .card-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    font-size: 1.8rem;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .admin-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0;
+  }
+
+  .admin-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .admin-links li {
+    margin-bottom: 1rem;
+  }
+
+  .admin-links li:last-child {
+    margin-bottom: 0;
+  }
+
+  .admin-link {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    background: rgba(102, 126, 234, 0.08);
+    border-radius: 16px;
+    text-decoration: none;
+    color: #2d3748;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .admin-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(102, 126, 234, 0.1),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .admin-link:hover::before {
+    left: 100%;
+  }
+
+  .admin-link:hover {
+    background: rgba(102, 126, 234, 0.12);
+    border-color: #667eea;
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  }
+
+  .admin-link i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    color: #667eea;
+    width: 24px;
+    text-align: center;
+  }
+
+  .link-text {
+    flex: 1;
+  }
+
+  .link-arrow {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+  }
+
+  .admin-link:hover .link-arrow {
+    transform: translateX(4px);
+    color: #667eea;
+  }
+
+  .quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: #718096;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .system-status {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .status-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .status-header i {
+    font-size: 1.5rem;
+    color: #48bb78;
+    margin-right: 1rem;
+  }
+
+  .status-header h3 {
+    margin: 0;
+    color: #2d3748;
+    font-size: 1.3rem;
+  }
+
+  .status-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+  }
+
+  .status-item i {
+    color: #48bb78;
+    font-size: 1.1rem;
+  }
+
+  .status-text {
+    color: #4a5568;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  /* Animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .admin-card,
+  .stat-card,
+  .system-status {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .admin-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .admin-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .admin-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .admin-card:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .stat-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .stat-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .stat-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .stat-card:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .system-status {
+    animation-delay: 0.5s;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 1rem;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+    }
+
+    .admin-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .quick-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .admin-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .card-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .card-icon {
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .quick-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .status-indicators {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p class="dashboard-subtitle">System administration</p>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="quick-stats"></div>
+
+  <div class="admin-grid">
+    <!-- System Administration -->
+    <div class="admin-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <h3 class="card-title">System Administration</h3>
+      </div>
+      <ul class="admin-links">
+        <li>
+          <a href="/admin/" class="admin-link">
+            <i class="fas fa-hospital"></i>
+            <span class="link-text">Hospital Admin</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Patient Management -->
+    <div class="admin-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <i class="fas fa-user-injured"></i>
+        </div>
+        <h3 class="card-title">Patient Management</h3>
+      </div>
+      <ul class="admin-links">
+        <li>
+          <a href="/patients/profiles/" class="admin-link">
+            <i class="fas fa-database"></i>
+            <span class="link-text">Patients</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Appointments -->
+    <div class="admin-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h3 class="card-title">Appointments</h3>
+      </div>
+      <ul class="admin-links">
+        <li>
+          <a href="/appointments/" class="admin-link">
+            <i class="fas fa-code"></i>
+            <span class="link-text">Appointments</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Billing & Finance -->
+    <div class="admin-card">
+      <div class="card-header">
+        <div class="card-icon">
+          <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <h3 class="card-title">Billing & Finance</h3>
+      </div>
+      <ul class="admin-links">
+        <li>
+          <a href="/billing/invoices/" class="admin-link">
+            <i class="fas fa-receipt"></i>
+            <span class="link-text">Invoices</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- System Status -->
+  <div class="system-status">
+    <div class="status-header">
+      <i class="fas fa-check-circle"></i>
+      <h3>System Status</h3>
+    </div>
+    <div class="status-indicators">
+      <div class="status-item">
+        <i class="fas fa-server"></i>
+        <span class="status-text">Database: {{ db_status }}</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-shield-alt"></i>
+        <span class="status-text">Security: {{ security_status }}</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-bolt"></i>
+        <span class="status-text">Performance: {{ performance_status }}</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-cloud"></i>
+        <span class="status-text">API: {{ api_status }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Animate stats counting
+  document.addEventListener("DOMContentLoaded", function () {
+    const statNumbers = document.querySelectorAll(".stat-number");
+    statNumbers.forEach((stat) => {
+      const originalText = stat.textContent;
+      if (!isNaN(originalText.replace("$", "").replace(",", ""))) {
+        let target = parseFloat(originalText.replace("$", "").replace(",", ""));
+        let current = 0;
+        const increment = target / 30;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            stat.textContent = originalText;
+            clearInterval(timer);
+          } else {
+            if (originalText.includes("$")) {
+              stat.textContent = "$" + Math.floor(current).toLocaleString();
+            } else {
+              stat.textContent = Math.floor(current).toLocaleString();
+            }
+          }
+        }, 50);
+      }
+    });
+  });
+</script>
+{% endblock %}
